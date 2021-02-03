@@ -110,8 +110,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
             else:
                 log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
 
-        except AttributeError, e:
-            log.msg(str(e))
+        except AttributeError as error:
+            log.msg(str(error))
             print "tokens = " + str(tokens)
             log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 

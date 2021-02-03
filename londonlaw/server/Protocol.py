@@ -284,11 +284,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                     self._game.syncPlayer(self._username)
             except KeyError:
                 raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
-            except TeamError, e:
-                raise DeniedCommand(self.trans.ugettext(e.ustr()))
-            except GameError, e:
-                raise DeniedCommand(self.trans.ugettext(e.ustr()))
-
+            except (TeamError, GameError) as error:
+                raise DeniedCommand(self.trans.ugettext(error.ustr()))
 
     def cmd_leave_joined(self, tag, args):
         self._game.removePlayer(self._username)
@@ -383,8 +380,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                     for p in GameRegistry.registry.getUnjoinedUsers():
                         GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"),
                               g.getStatus(), g.getType(), str(g.getNumPlayers()))
-                except GameError, e:
-                    raise DeniedCommand(self.trans.ugettext(e.ustr()))
+                except GameError as error:
+                    raise DeniedCommand(self.trans.ugettext(error.ustr()))
 
 
     def cmd_login_default(self, tag, args):
@@ -408,11 +405,11 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                 log.msg(util.printable(_("Player \"%(playername)s\" has signed on") %
                       {"playername" : self._username}))
                 self.sendOk(tag)
-            except GameRegistry.PasswordError, e:
-                raise DeniedCommand(self.trans.ugettext(e.ustr()))
-            except GameRegistry.UserError, e:
-                raise DeniedCommand(self.trans.ugettext(e.ustr()))
-
+            except (
+                GameRegistry.PasswordError,
+                GameRegistry.UserError,
+            ) as error:
+                raise DeniedCommand(self.trans.ugettext(error.ustr()))
 
     def cmd_login_init(self, tag, args):
         raise DeniedCommand(self.trans.ugettext("Protocol version not verified."))
@@ -476,12 +473,12 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
     def cmd_setteam_joined(self, tag, args):
         if len(args) == 0:
             raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+
         try:
             self._game.setTeam(self._username, args[0])
-        except GameError, e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
-        except TeamError, e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
+        except (GameError, TeamError) as error:
+            raise DeniedCommand(self.trans.ugettext(error.ustr()))
+        
         self.sendOk(tag)
 
 
@@ -491,8 +488,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
         vote = args[0].lower()
         try:
             self._voteStart = util.parse_bool(vote)
-        except ValueError, e:
-            raise IllegalCommand(str(e))
+        except ValueError as error:
+            raise IllegalCommand(str(error))
         self.sendOk(tag)
         for listener in self._game.getListeners():
             listener.playerModified(self.getUsername())
@@ -587,16 +584,16 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
             try:
                 f(tag, arguments)
-            except IllegalCommand, e:
-                self.sendBad(tag, e.ustr().encode("utf-8"))
-            except DeniedCommand, e:
-                self.sendNo(tag, e.ustr().encode("utf-8"))
+            except IllegalCommand as error:
+                self.sendBad(tag, error.ustr().encode("utf-8"))
+            except DeniedCommand as error:
+                self.sendNo(tag, error.ustr().encode("utf-8"))
 
-        except ServerError, e:
-            self.sendBad("*", e.ustr().encode("utf-8"))
-        except ValueError, e:
-            print "value error:" + str(e)
-            self.sendBad("-", str(e))
+        except ServerError as error:
+            self.sendBad("*", error.ustr().encode("utf-8"))
+        except ValueError as error:
+            print "value error:" + str(error)
+            self.sendBad("-", str(error))
 
 
     def sendBad(self, tag, message=None):
