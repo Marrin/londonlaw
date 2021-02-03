@@ -32,6 +32,10 @@ from londonlaw.common.config import *
 # readout of the available tokens.
 # expects a list of three tokens (taxi, bus, undergnd) or a list of five
 # tokens (taxi, bus, undergnd, black, double)
+#
+# TODO Replace the `isMrX` flag and the ``if``\s by subclasses for Mr X. and
+#   detectives?
+#
 class PlayerIcon(wx.Panel):
     def __init__(self, parent, imagefile, thinkingimagefile, stuckimagefile,
              name, tokenList, isMrX = False):
@@ -69,18 +73,31 @@ class PlayerIcon(wx.Panel):
         self.caption = TextPanel(self, " "+name[:20]+" ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
 
         # create the inventory labels
+        #
+        # TODO Remove setting the label texts and call `updateTokens()` instead.
+        #
         if self.isMrX:
-            self.blackLabel = TextPanel(self, " "+`tokenList[3]`+" ", 10, wx.EXPAND)
+            self.blackLabel = TextPanel(
+                self, " {} ".format(tokenList[3]), 10, wx.EXPAND
+            )
             self.blackLabel.SetBackgroundColour(wx.Colour(0,0,0))
             self.blackLabel.SetForegroundColour(wx.Colour(255,255,255))
-            self.doubleLabel = TextPanel(self, " "+`tokenList[4]`+" ", 10, wx.EXPAND)
+            self.doubleLabel = TextPanel(
+                self, " {} ".format(tokenList[4]), 10, wx.EXPAND
+            )
             self.doubleLabel.SetBackgroundColour(wx.Colour(255,84,166))
         else:
-            self.taxiLabel = TextPanel(self, " "+`tokenList[0]`+" ", 10, wx.EXPAND)
+            self.taxiLabel = TextPanel(
+                self, " {} ".format(tokenList[0]), 10, wx.EXPAND
+            )
             self.taxiLabel.SetBackgroundColour(wx.Colour(255, 191, 0))
-            self.busLabel = TextPanel(self, " "+`tokenList[1]`+" ", 10, wx.EXPAND)
+            self.busLabel = TextPanel(
+                self, " {} ".format(tokenList[1]), 10, wx.EXPAND
+            )
             self.busLabel.SetBackgroundColour(wx.Colour(7, 155, 0))
-            self.ugndLabel = TextPanel(self, " "+`tokenList[2]`+" ", 10, wx.EXPAND)
+            self.ugndLabel = TextPanel(
+                self, " {} ".format(tokenList[2]), 10, wx.EXPAND
+            )
             self.ugndLabel.SetBackgroundColour(wx.Colour(160, 36, 96))
             self.ugndLabel.SetForegroundColour(wx.Colour(255, 255, 255))
 
@@ -112,12 +129,12 @@ class PlayerIcon(wx.Panel):
 
     def updateTokens(self, tokenList):
         if self.isMrX:
-            self.blackLabel.SetText(" "+`tokenList[3]`+" ")
-            self.doubleLabel.SetText(" "+`tokenList[4]`+" ")
+            self.blackLabel.SetText(" {} ".format(tokenList[3]))
+            self.doubleLabel.SetText(" {} ".format(tokenList[4]))
         else:
-            self.taxiLabel.SetText(" "+`tokenList[0]`+" ")
-            self.busLabel.SetText(" "+`tokenList[1]`+" ")
-            self.ugndLabel.SetText(" "+`tokenList[2]`+" ")
+            self.taxiLabel.SetText(" {} ".format(tokenList[0]))
+            self.busLabel.SetText(" {} ".format(tokenList[1]))
+            self.ugndLabel.SetText(" {} ".format(tokenList[2]))
         self.invSizer.Layout()
 
 
@@ -182,8 +199,15 @@ class PlayerIconGroup(wx.Panel):
 
         # Get icons for all the players
         if len(nameList) != 6:
-            sys.exit("PlayerIconGroup must be called with len(nameList) == 6\n" +
-               "(here it was called with length "+`len(nameList)`+")")
+            #
+            # TODO This one is odd.  Should be an ``assert`` or raising an
+            #   exception but not ending the whole process this way.
+            #
+            import sys
+            sys.exit(
+                "PlayerIconGroup must be called with len(nameList) == 6\n"
+                "(here it was called with length {})".format(len(nameList))
+            )
 
         self.players = [PlayerIcon(self,
            os.path.normpath(os.path.join(MEDIAROOT, "images/playericon0.jpg")),

@@ -500,7 +500,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
 
     def cmd_whatturnnum_playing(self, tag, args):
-        self.sendTokens(tag, "turnnum", `self._game.getTurnNum()`)
+        self.sendTokens(tag, "turnnum", str(self._game.getTurnNum()))
 
 
     def cmd_whoseturn_playing(self, tag, args):
@@ -646,14 +646,16 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                 loc = -1
             else:
                 loc = pawn.getLocation()
-            self.sendUntagged("pawninfo", pawn.getName(),
-                  pawn.getPlayer().encode("utf-8"), `loc`,
-                  `pawn.getTicketAmount("taxi")`,
-                  `pawn.getTicketAmount("bus")`,
-                  `pawn.getTicketAmount("underground")`,
-                  `pawn.getTicketAmount("black")`,
-                  `pawn.getTicketAmount("double")`)
-
+            self.sendUntagged(
+                "pawninfo", pawn.getName(),
+                pawn.getPlayer().encode("utf-8"),
+                str(loc),
+                str(pawn.getTicketAmount("taxi")),
+                str(pawn.getTicketAmount("bus")),
+                str(pawn.getTicketAmount("underground")),
+                str(pawn.getTicketAmount("black")),
+                str(pawn.getTicketAmount("double")),
+            )
 
     def sendPlayerInfo(self, username, game=None):
         if game == None:
