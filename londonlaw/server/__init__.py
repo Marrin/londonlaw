@@ -15,12 +15,13 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
+from __future__ import absolute_import
 from twisted.internet import protocol, reactor, task
 from twisted.python import log
 from londonlaw.common.protocol import *
-from Protocol import LLawServerProtocol
+from .Protocol import LLawServerProtocol
 from optparse import OptionParser
-import GameRegistry
+from . import GameRegistry
 import sys, gettext, os
 
 

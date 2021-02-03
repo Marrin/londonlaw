@@ -28,6 +28,7 @@
 # FIXME: this appears to be correct, but needs some major cleanup.  Maybe some portions
 #        can be factored better into functions.
 
+from __future__ import absolute_import
 import gettext, wx
 from londonlaw.common.map import *
 

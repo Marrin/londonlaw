@@ -16,6 +16,7 @@
 
 
 
+from __future__ import absolute_import
 from twisted.internet import protocol, reactor
 from twisted.protocols import basic
 from twisted.python import log
@@ -23,8 +24,8 @@ import re, shlex, sys, gettext, os
 from londonlaw.common import util
 from londonlaw.aiclients import ai_list
 from londonlaw.common.protocol import *
-from Game import *
-import GameRegistry
+from .Game import *
+from . import GameRegistry
 
 
 class ServerError(Exception):

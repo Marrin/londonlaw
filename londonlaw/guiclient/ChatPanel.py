@@ -21,8 +21,9 @@
 #
 # This class creates a combined chat entry and chat message display area.
 
+from __future__ import absolute_import
 import gettext, wx
-from ScrolledLabel import *
+from .ScrolledLabel import *
 
 
 # Wrapped in a StaticBox.

@@ -16,6 +16,7 @@
 
 
 
+from __future__ import absolute_import
 import shlex, sys, gettext, locale
 from twisted.protocols import basic
 from twisted.python import log

@@ -15,6 +15,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
+from __future__ import absolute_import
 from twisted.internet import protocol, reactor
 from twisted.python import log
 import sys

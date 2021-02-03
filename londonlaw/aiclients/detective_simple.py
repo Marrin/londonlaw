@@ -16,6 +16,7 @@
 
 
 
+from __future__ import absolute_import
 import random, sets
 from twisted.internet import protocol
 from twisted.python import log

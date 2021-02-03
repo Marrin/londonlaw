@@ -24,6 +24,7 @@
 # quickly as possible without regard for the tickets spent.  The rest of the
 # time, cheapest_path is probably a better choice.
 
+from __future__ import absolute_import
 from londonlaw.common import map
 import sets
 

@@ -22,8 +22,9 @@
 # has a scroll bar to control the view.
 
 
+from __future__ import absolute_import
 import os, sys, string, gettext, wx
-from TextPanel import *
+from .TextPanel import *
 from londonlaw.common.config import *
 
 class HistoryWindow(wx.ScrolledWindow):

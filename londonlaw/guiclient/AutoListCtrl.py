@@ -34,6 +34,7 @@
 # at a time, at which point a player registration window is spawned.
 
 
+from __future__ import absolute_import
 import os.path, gettext, wx
 from twisted.python import log
 import wx

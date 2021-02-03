@@ -21,13 +21,14 @@
 # This class handles the main in-game window.  It has a map window,
 # a set of player status icons, a chat area, and some useful buttons.
 
+from __future__ import absolute_import
 import time, gettext, wx
-from MapWindow import *
-from ChatPanel import *
-from PlayerIcon import *
-from MoveDialog import *
-from HistoryWindow import *
-from graphicalmap import *
+from .MapWindow import *
+from .ChatPanel import *
+from .PlayerIcon import *
+from .MoveDialog import *
+from .HistoryWindow import *
+from .graphicalmap import *
 from londonlaw.common.protocol import LLAW_VERSION
 
 

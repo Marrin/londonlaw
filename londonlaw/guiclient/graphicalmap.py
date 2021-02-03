@@ -16,9 +16,10 @@
 
 
 
+from __future__ import absolute_import
 import os, wx
-from utility import *
-from SetHash import *
+from .utility import *
+from .SetHash import *
 from londonlaw.common.config import *
 
 

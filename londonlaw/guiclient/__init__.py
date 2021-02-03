@@ -15,6 +15,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
+from __future__ import absolute_import
 import wxversion
 try:
     wxversion.select("3.0")
@@ -29,12 +30,12 @@ wxreactor.install()
 import sys, gettext
 from twisted.internet import protocol, reactor
 from twisted.python import log
-from ConnectWindow import *
-from GameListWindow import *
-from RegistrationWindow import *
-from MainWindow import *
-from Protocol import LLawClientProtocol
-from GuiNetMessenger import *
+from .ConnectWindow import *
+from .GameListWindow import *
+from .RegistrationWindow import *
+from .MainWindow import *
+from .Protocol import LLawClientProtocol
+from .GuiNetMessenger import *
 
 
 

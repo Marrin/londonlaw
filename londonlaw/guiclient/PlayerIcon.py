@@ -23,8 +23,9 @@
 # There are captions for names and readouts of the available tokens.
 # Status icons can be overlaid on the player icons to show whose turn it is, etc.
 
+from __future__ import absolute_import
 import os, gettext, wx
-from TextPanel import *
+from .TextPanel import *
 from londonlaw.common.config import *
 
 

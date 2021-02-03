@@ -23,13 +23,14 @@
 # game room, permit changing teams, etc.
 
 
+from __future__ import absolute_import
 import os.path, gettext, wx
 from twisted.python import log
 import wx
 from londonlaw.common.protocol import *
 from londonlaw.common.config import *
-from AutoListCtrl import *
-from ChatPanel import *
+from .AutoListCtrl import *
+from .ChatPanel import *
 
 
 

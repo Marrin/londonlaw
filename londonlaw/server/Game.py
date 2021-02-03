@@ -15,6 +15,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
+from __future__ import absolute_import
 import re, random, sets, time, gettext
 
 from twisted.python import log
@@ -23,8 +24,8 @@ from zope import interface
 from londonlaw.common.protocol import *
 from londonlaw.common.map import *
 from londonlaw.common.Pawn import *
-from Team import *
-import Protocol, GameRegistry
+from .Team import *
+from . import Protocol, GameRegistry
 
 
 # mark strings for use with xgettext

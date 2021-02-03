@@ -23,6 +23,7 @@
 # The gameroom name should be encoded using UTF-8.
 
 
+from __future__ import absolute_import
 from twisted.internet import reactor
 from twisted.python import log
 import sys, os

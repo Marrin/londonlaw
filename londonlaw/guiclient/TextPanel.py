@@ -23,6 +23,7 @@
 # allows one to set both foreground and background colors, as well as
 # borders around the window.
 
+from __future__ import absolute_import
 import wx
 
 # Generate a text label drawn on a wx.Panel.

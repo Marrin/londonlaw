@@ -22,6 +22,7 @@
 # This class handles a wx.StaticText that is managed by a scrolled window.
 
 
+from __future__ import absolute_import
 import wx
 
 class ScrolledLabel(wx.ScrolledWindow):

@@ -22,6 +22,7 @@
 # This class handles the initial connection window, where players
 # enter server information and provide usernames.
 
+from __future__ import absolute_import
 import sys, gettext, wx
 from londonlaw.common.protocol import *
 

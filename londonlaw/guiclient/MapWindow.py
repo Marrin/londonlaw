@@ -24,9 +24,10 @@
 # to launch a MoveDialog.
 
 
+from __future__ import absolute_import
 import os, gettext, wx
-from TextPanel import *
-from graphicalmap import *
+from .TextPanel import *
+from .graphicalmap import *
 from londonlaw.common.config import *
 
 
