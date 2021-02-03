@@ -15,24 +15,24 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-
 # utility.py
 #
 # various utility functions that don't fit well elsewhere
 
 
 # determine whether two rectangles overlap
-def collideRect((x1, y1, w1, h1), (x2, y2, w2, h2)):
-    if ((x1+w1-1) < x2 or x1 > (x2+w2-1) or
-          (y1+h1-1) < y2 or y1 > (y2+h2-1)):
-        return 0
-    else:
-        return 1
+def collideRect(rectangle_a, rectangle_b):
+    x1, y1, w1, h1 = rectangle_a
+    x2, y2, w2, h2 = rectangle_b
+    return not (
+        x1 + w1 - 1 < x2
+        or x1 > x2 + w2 - 1
+        or y1 + h1 - 1 < y2
+        or y1 > y2 + h2 - 1
+    )
 
 
-def collidePoint((x1, y1), (x2, y2, w2, h2)):
-    if (x1 < x2 or x1 > (x2+w2-1) or
-          y1 < y2 or y1 > (y2+h2-1)):
-        return 0
-    else:
-        return 1
+def collidePoint(point, rectangle):
+    x1, y1 = point
+    x2, y2, w2, h2 = rectangle
+    return not (x1 < x2 or x1 > x2 + w2 - 1 or y1 < y2 or y1 > y2 + h2 - 1)
