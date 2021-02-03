@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -48,8 +48,8 @@ BLACK       = "black"
 # locToRoutes is generated from this by adding the (invisible) black ticket transports
 # to all routes in _locToRoutesPartial.
 _locToRoutesPartial = \
-      ( None,  # locToRoutes[0] has no value; need to access locToRoutes[1] and higher               
-         ( (8, (TAXI,)), (9, (TAXI,)), (58, (BUS,)), (46, (BUS, UNDERGROUND)) ),     # 001 
+      ( None,  # locToRoutes[0] has no value; need to access locToRoutes[1] and higher
+         ( (8, (TAXI,)), (9, (TAXI,)), (58, (BUS,)), (46, (BUS, UNDERGROUND)) ),     # 001
          ( (20, (TAXI,)), (10, (TAXI,)) ),
          ( (11, (TAXI,)), (12, (TAXI,)), (4, (TAXI,)), (22, (BUS,)), (23, (BUS,)) ),
          ( (3, (TAXI,)), (13, (TAXI,)) ),
@@ -61,7 +61,7 @@ _locToRoutesPartial = \
          ( (2, (TAXI,)), (11, (TAXI,)), (34, (TAXI,)), (21, (TAXI,)) ),              # 010
          ( (3, (TAXI,)), (10, (TAXI,)), (22, (TAXI,)) ),
          ( (3, (TAXI,)), (23, (TAXI,)) ),
-         ( (4, (TAXI,)), (14, (TAXI, BUS)), (24, (TAXI,)), (23, (TAXI, BUS)), (52, (BUS,)), 
+         ( (4, (TAXI,)), (14, (TAXI, BUS)), (24, (TAXI,)), (23, (TAXI, BUS)), (52, (BUS,)),
             (89, (UNDERGROUND,)), (67, (UNDERGROUND,)), (46, (UNDERGROUND,)) ),
          ( (13, (TAXI, BUS)), (15, (TAXI, BUS)), (25, (TAXI,)) ),
          ( (5, (TAXI,)), (16, (TAXI,)), (28, (TAXI,)), (26, (TAXI,)), (14, (TAXI, BUS)),
@@ -74,7 +74,7 @@ _locToRoutesPartial = \
          ( (10, (TAXI,)), (33, (TAXI,)) ),
          ( (11, (TAXI,)), (23, (TAXI, BUS)), (35, (TAXI,)), (34, (TAXI, BUS)),
             (3, (BUS,)), (65, (BUS,)) ),
-         ( (12, (TAXI,)), (13, (TAXI, BUS)), (37, (TAXI,)), (22, (TAXI, BUS)), 
+         ( (12, (TAXI,)), (13, (TAXI, BUS)), (37, (TAXI,)), (22, (TAXI, BUS)),
             (3, (BUS,)), (67, (BUS,)) ),
          ( (13, (TAXI,)), (38, (TAXI,)), (37, (TAXI,)) ),
          ( (14, (TAXI,)), (39, (TAXI,)), (38, (TAXI,)) ),                            # 025
@@ -128,7 +128,7 @@ _locToRoutesPartial = \
             (34, (BUS,)), (65, (BUS,)), (100, (BUS,)) ),
          ( (65, (TAXI,)), (81, (TAXI,)), (63, (TAXI,)) ),
          ( (35, (TAXI,)), (66, (TAXI,)), (82, (TAXI, BUS)), (64, (TAXI,)),           # 065
-            (22, (BUS,)), (67, (BUS,)), (63, (BUS,)) ),                                           
+            (22, (BUS,)), (67, (BUS,)), (63, (BUS,)) ),
          ( (49, (TAXI,)), (67, (TAXI,)), (82, (TAXI,)), (65, (TAXI,)) ),
          ( (51, (TAXI,)), (68, (TAXI,)), (84, (TAXI,)), (66, (TAXI,)), (23, (BUS,)),
             (52, (BUS,)), (102, (BUS,)), (82, (BUS,)), (65, (BUS,)),
@@ -166,7 +166,7 @@ _locToRoutesPartial = \
          ( (71, (TAXI,)), (55, (BUS,)), (13, (UNDERGROUND,)), (105, (TAXI, BUS)),
             (128, (UNDERGROUND,)), (88, (TAXI,)), (140, (UNDERGROUND,)),
             (67, (UNDERGROUND,)) ),
-         ( (72, (TAXI,)), (91, (TAXI,)), (105, (TAXI,)) ),                           # 090 
+         ( (72, (TAXI,)), (91, (TAXI,)), (105, (TAXI,)) ),                           # 090
          ( (56, (TAXI,)), (107, (TAXI,)), (105, (TAXI,)), (90, (TAXI,)), (72, (TAXI,)) ),
          ( (73, (TAXI,)), (74, (TAXI,)), (93, (TAXI,)) ),
          ( (92, (TAXI,)), (94, (TAXI, BUS)), (79, (UNDERGROUND,)) ),
@@ -317,7 +317,7 @@ _locToRoutesPartial = \
          ( (196, (TAXI,)), (184, (TAXI,)), (195, (TAXI,)) ),
          ( (159, (TAXI,)), (187, (TAXI,)), (199, (TAXI,)), (186, (TAXI,)) ),
          ( (188, (TAXI,)), (128, (BUS,)), (171, (TAXI,)), (161, (BUS,)),
-            (198, (TAXI,)) ) 
+            (198, (TAXI,)) )
       )
 
 
@@ -326,50 +326,50 @@ MAX_DISTANCE = 10
 
 locToRoutes = (None,)
 for i in range(1, len(_locToRoutesPartial)):
-   routes = ()
-   for dest, transports in _locToRoutesPartial[i]:
-      if BLACK not in transports:
-         new_transports = transports + (BLACK,)
-      else:
-         new_transports = transports
-      routes += ((dest, new_transports),)
-   locToRoutes += (routes,)
+    routes = ()
+    for dest, transports in _locToRoutesPartial[i]:
+        if BLACK not in transports:
+            new_transports = transports + (BLACK,)
+        else:
+            new_transports = transports
+        routes += ((dest, new_transports),)
+    locToRoutes += (routes,)
 
 
 # Test a map to see if it is self-consistent--i.e., check that routes from A to B also
 # exist from B to A.  More effective than proofreading...
 def checkMap(m):
-   passed = 1
-   partial = 0
-   for i in range(1, len(m)):
-      print "testing location " + str(i)
-      routes = m[i]
-      for route in routes:
-         if route[0] < len(m):
-            destRoutes = m[route[0]]
-            matched = 0
-            for destRoute in destRoutes:
-               if destRoute[0] == i:
-                  matched = 1
-                  if destRoute[1] != route[1]:
-                     print ("Error at location "+str(i)+": route to " + str(route[0]) +
-                        " is not self-consistent.")
-                     passed = 0
-                  break
-            if not matched:
-               print "Error at location "+str(i)+": missing route from "+str(route[0])+"."
-               passed = 0
-         else:
-            partial = 1
-   print "----------------------------------------------------------------------------------"
-   if partial:
-      cstr = "Incomplete"
-   else:
-      cstr = "Complete"
-   if passed:
-      print cstr + " map is self-consistent."
-   else:
-      print "Error: "+cstr+" map is not self-consistent."
+    passed = 1
+    partial = 0
+    for i in range(1, len(m)):
+        print "testing location " + str(i)
+        routes = m[i]
+        for route in routes:
+            if route[0] < len(m):
+                destRoutes = m[route[0]]
+                matched = 0
+                for destRoute in destRoutes:
+                    if destRoute[0] == i:
+                        matched = 1
+                        if destRoute[1] != route[1]:
+                            print ("Error at location "+str(i)+": route to " + str(route[0]) +
+                               " is not self-consistent.")
+                            passed = 0
+                        break
+                if not matched:
+                    print "Error at location "+str(i)+": missing route from "+str(route[0])+"."
+                    passed = 0
+            else:
+                partial = 1
+    print "----------------------------------------------------------------------------------"
+    if partial:
+        cstr = "Incomplete"
+    else:
+        cstr = "Complete"
+    if passed:
+        print cstr + " map is self-consistent."
+    else:
+        print "Error: "+cstr+" map is not self-consistent."
 
 
 
@@ -384,7 +384,7 @@ def checkMap(m):
 #   # Generate outgoing routes from all locations
 #   map = [None]
 #   for i in range(1,SIZE+1):
-#      routes = [] 
+#      routes = []
 #      destList = []  # throwaway counter variable
 #      for routeNum in range(random.randrange(1,4)):
 #         destination = random.randrange(1, SIZE+1)
@@ -416,8 +416,3 @@ def checkMap(m):
 #     # map is mutable, so it gets changed simply by changing 'routes'.
 #
 #   return map
-
-
-
-
-

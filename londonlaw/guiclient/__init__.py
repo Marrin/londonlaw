@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -17,9 +17,9 @@
 
 import wxversion
 try:
-	wxversion.select("3.0")
+    wxversion.select("3.0")
 except wxversion.VersionError:
-	wxversion.select("2.8")
+    wxversion.select("2.8")
 
 import wx
 
@@ -42,123 +42,120 @@ messenger = GuiNetMessenger()
 
 
 class LLawClientFactory(protocol.ClientFactory):
-   protocol = LLawClientProtocol
+    protocol = LLawClientProtocol
 
-   def registerProtocol(self, p):
-      messenger.registerProtocol(p)
+    def registerProtocol(self, p):
+        messenger.registerProtocol(p)
 
-   def clientConnectionFailed(self, connector, reason):
-      messenger.guiAlert(_("Unable to connect to server."))
+    def clientConnectionFailed(self, connector, reason):
+        messenger.guiAlert(_("Unable to connect to server."))
 
 
 # ensure the Twisted reactor gets cleanly shut down
 def shutdown(shutdownWindow):
-   #reactor.addSystemEventTrigger('after', 'shutdown', shutdownWindow.Close, True)
-   reactor.stop()
+    #reactor.addSystemEventTrigger('after', 'shutdown', shutdownWindow.Close, True)
+    reactor.stop()
 
 
 # Run the whole shebang.
 class MyApp(wx.App):
 
-   def OnInit(self):
-      TIMERID = 999999
+    def OnInit(self):
+        TIMERID = 999999
 
-      self.currentWindow = None
-      messenger.registerConnectionWindowLauncher(self.chooseConnection)
-      messenger.registerGameListWindowLauncher(self.chooseGame)
-      messenger.registerRegistrationWindowLauncher(self.register)
-      messenger.registerMainWindowLauncher(self.startGame)
+        self.currentWindow = None
+        messenger.registerConnectionWindowLauncher(self.chooseConnection)
+        messenger.registerGameListWindowLauncher(self.chooseGame)
+        messenger.registerRegistrationWindowLauncher(self.register)
+        messenger.registerMainWindowLauncher(self.startGame)
 
-      #wx.InitAllImageHandlers()        # Required to be able to load compressed images
+        #wx.InitAllImageHandlers()        # Required to be able to load compressed images
 
-      messenger.guiLaunchConnectionWindow()
+        messenger.guiLaunchConnectionWindow()
 
-      return True
-
-
-   def chooseConnection(self, event = None):
-      if self.currentWindow:
-         self.currentWindow.Destroy()
-      # TRANSLATORS: window title for server connection
-      self.connectFrame = ConnectWindow(None, -1, _("London Law -- Connect to Server"), shutdown)
-      self.connectFrame.Fit()
-      self.connectFrame.Show(1)
-      self.currentWindow = self.connectFrame
-      wx.EVT_BUTTON(self.connectFrame, self.connectFrame.connectButton.GetId(), self.connect)
-      return self.connectFrame
+        return True
 
 
-   def chooseGame(self, event = None):
-      if self.currentWindow:
-         self.currentWindow.Destroy()
-      # TRANSLATORS: window title for game selection
-      self.chooseGameFrame = GameListWindow(None, -1, _("London Law -- Choose a Game"), 
-            messenger, shutdown)
-      self.chooseGameFrame.SetSize((640, 480))
-      self.chooseGameFrame.Show(1)
-      self.currentWindow = self.chooseGameFrame
-      return self.chooseGameFrame
+    def chooseConnection(self, event = None):
+        if self.currentWindow:
+            self.currentWindow.Destroy()
+        # TRANSLATORS: window title for server connection
+        self.connectFrame = ConnectWindow(None, -1, _("London Law -- Connect to Server"), shutdown)
+        self.connectFrame.Fit()
+        self.connectFrame.Show(1)
+        self.currentWindow = self.connectFrame
+        wx.EVT_BUTTON(self.connectFrame, self.connectFrame.connectButton.GetId(), self.connect)
+        return self.connectFrame
 
 
-   def register(self, event = None):
-      if self.currentWindow:
-         self.currentWindow.Destroy()
-      # TRANSLATORS: window title for team selection
-      self.registerFrame = RegistrationWindow(None, -1, _("London Law -- Team Selection"), 
-            messenger, shutdown)
-      self.registerFrame.Fit()
-      self.registerFrame.SetSize((640, 480))
-      self.registerFrame.Show(1)
-      self.currentWindow = self.registerFrame
-      return self.registerFrame
+    def chooseGame(self, event = None):
+        if self.currentWindow:
+            self.currentWindow.Destroy()
+        # TRANSLATORS: window title for game selection
+        self.chooseGameFrame = GameListWindow(None, -1, _("London Law -- Choose a Game"),
+              messenger, shutdown)
+        self.chooseGameFrame.SetSize((640, 480))
+        self.chooseGameFrame.Show(1)
+        self.currentWindow = self.chooseGameFrame
+        return self.chooseGameFrame
 
 
-   def startGame(self, username, playerList, event = None):
-      if self.currentWindow:
-         self.currentWindow.Destroy()
-      # TRANSLATORS: main window title
-      self.mainFrame = MainWindow(None, -1, _("London Law"), username, playerList, 
-            messenger, shutdown)
-      self.mainFrame.SetSize((1000,740))
-      self.mainFrame.Show(1)
-      self.currentWindow = self.mainFrame
-      return self.mainFrame
+    def register(self, event = None):
+        if self.currentWindow:
+            self.currentWindow.Destroy()
+        # TRANSLATORS: window title for team selection
+        self.registerFrame = RegistrationWindow(None, -1, _("London Law -- Team Selection"),
+              messenger, shutdown)
+        self.registerFrame.Fit()
+        self.registerFrame.SetSize((640, 480))
+        self.registerFrame.Show(1)
+        self.currentWindow = self.registerFrame
+        return self.registerFrame
 
 
-   def connect(self, event = None):
-      hostname = self.connectFrame.hostEntry.GetValue()
-      port     = self.connectFrame.portEntry.GetValue()
-      username = self.connectFrame.usernameEntry.GetValue()
-      password = self.connectFrame.passEntry.GetValue()
-      if len(hostname) < 1:
-         self.connectFrame.status.PushStatusText(_("You must enter a valid hostname."))
-         return
-      elif len(port) < 1:
-         self.connectFrame.status.PushStatusText(_("You must enter a valid port number."))
-         return
-      elif len(username) < 1:
-         self.connectFrame.status.PushStatusText(_("You must enter a valid username."))
-         return
-      else:
-         try:
-            portNum = int(port)
-         except:
-            self.connectFrame.status.PushStatusText(_("The port number must be an integer."))
+    def startGame(self, username, playerList, event = None):
+        if self.currentWindow:
+            self.currentWindow.Destroy()
+        # TRANSLATORS: main window title
+        self.mainFrame = MainWindow(None, -1, _("London Law"), username, playerList,
+              messenger, shutdown)
+        self.mainFrame.SetSize((1000,740))
+        self.mainFrame.Show(1)
+        self.currentWindow = self.mainFrame
+        return self.mainFrame
+
+
+    def connect(self, event = None):
+        hostname = self.connectFrame.hostEntry.GetValue()
+        port     = self.connectFrame.portEntry.GetValue()
+        username = self.connectFrame.usernameEntry.GetValue()
+        password = self.connectFrame.passEntry.GetValue()
+        if len(hostname) < 1:
+            self.connectFrame.status.PushStatusText(_("You must enter a valid hostname."))
             return
+        elif len(port) < 1:
+            self.connectFrame.status.PushStatusText(_("You must enter a valid port number."))
+            return
+        elif len(username) < 1:
+            self.connectFrame.status.PushStatusText(_("You must enter a valid username."))
+            return
+        else:
+            try:
+                portNum = int(port)
+            except:
+                self.connectFrame.status.PushStatusText(_("The port number must be an integer."))
+                return
 
-         messenger.setUsername(username)
-         messenger.setPassword(password)
-         self.connectFrame.status.PushStatusText(_("Connecting to server..."))
-         reactor.connectTCP(hostname, portNum, LLawClientFactory())
+            messenger.setUsername(username)
+            messenger.setPassword(password)
+            self.connectFrame.status.PushStatusText(_("Connecting to server..."))
+            reactor.connectTCP(hostname, portNum, LLawClientFactory())
 
 
 
 def init():
-   log.startLogging(sys.stderr, 0)
-   app = MyApp(0)
+    log.startLogging(sys.stderr, 0)
+    app = MyApp(0)
 
-   reactor.registerWxApp(app)
-   reactor.run()
-
-
-
+    reactor.registerWxApp(app)
+    reactor.run()

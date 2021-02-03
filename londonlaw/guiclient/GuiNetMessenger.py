@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -20,126 +20,124 @@
 # protocol and gui
 class GuiNetMessenger:
 
-   def getUsername(self):
-      return self._username
+    def getUsername(self):
+        return self._username
 
-   def getPassword(self):
-      return self._password
+    def getPassword(self):
+        return self._password
 
-   def guiAddGame(self, data):
-      self._gameListWindow.addGame(data)
+    def guiAddGame(self, data):
+        self._gameListWindow.addGame(data)
 
-   def guiAddPlayer(self, data):
-      self._registrationWindow.addPlayer(data)
+    def guiAddPlayer(self, data):
+        self._registrationWindow.addPlayer(data)
 
-   def guiAlert(self, info):
-      self._currentWindow.showInfoAlert(info)
+    def guiAlert(self, info):
+        self._currentWindow.showInfoAlert(info)
 
-   def guiDisableVoteButton(self):
-      self._registrationWindow.disableVoteButton()
+    def guiDisableVoteButton(self):
+        self._registrationWindow.disableVoteButton()
 
-   def guiDisableMove(self):
-      self._mainWindow.disableMoveButton()
+    def guiDisableMove(self):
+        self._mainWindow.disableMoveButton()
 
-   def guiDisplayMove(self, data):
-      self._mainWindow.displayMove(data)
+    def guiDisplayMove(self, data):
+        self._mainWindow.displayMove(data)
 
-   def guiLaunchConnectionWindow(self):
-      self._connectionWindow = self._launchConnectionWindow()
-      self._currentWindow    = self._connectionWindow
+    def guiLaunchConnectionWindow(self):
+        self._connectionWindow = self._launchConnectionWindow()
+        self._currentWindow    = self._connectionWindow
 
-   def guiLaunchGameListWindow(self):
-      self._gameListWindow = self._launchGameListWindow()
-      self._currentWindow  = self._gameListWindow
+    def guiLaunchGameListWindow(self):
+        self._gameListWindow = self._launchGameListWindow()
+        self._currentWindow  = self._gameListWindow
 
-   def guiLaunchMainWindow(self, pawnInfo):
-      self._mainWindow    = self._launchMainWindow(self._username, pawnInfo)
-      self._currentWindow = self._mainWindow
+    def guiLaunchMainWindow(self, pawnInfo):
+        self._mainWindow    = self._launchMainWindow(self._username, pawnInfo)
+        self._currentWindow = self._mainWindow
 
-   def guiLaunchRegistrationWindow(self):
-      self._registrationWindow = self._launchRegistrationWindow()
-      self._currentWindow      = self._registrationWindow
+    def guiLaunchRegistrationWindow(self):
+        self._registrationWindow = self._launchRegistrationWindow()
+        self._currentWindow      = self._registrationWindow
 
-   def guiPawnStuck(self, pawnName):
-      self._mainWindow.pawnStuck(pawnName)
+    def guiPawnStuck(self, pawnName):
+        self._mainWindow.pawnStuck(pawnName)
 
-   def guiRemoveGame(self, data):
-      self._gameListWindow.removeGame(data)
+    def guiRemoveGame(self, data):
+        self._gameListWindow.removeGame(data)
 
-   def guiRemovePlayer(self, data):
-      self._registrationWindow.removePlayer(data)
+    def guiRemovePlayer(self, data):
+        self._registrationWindow.removePlayer(data)
 
-   def guiSelectAI(self, aiList):
-      self._registrationWindow.selectAI(aiList)
+    def guiSelectAI(self, aiList):
+        self._registrationWindow.selectAI(aiList)
 
-   def guiSetTurnNum(self, turnNum):
-      self._mainWindow.setTurnNum(int(turnNum))
+    def guiSetTurnNum(self, turnNum):
+        self._mainWindow.setTurnNum(int(turnNum))
 
-   def guiSetPawnTurn(self, pawnName):
-      self._mainWindow.setPawnTurn(pawnName)
+    def guiSetPawnTurn(self, pawnName):
+        self._mainWindow.setPawnTurn(pawnName)
 
-   def guiUpdateHistory(self, history):
-      self._mainWindow.updateHistory(history)
+    def guiUpdateHistory(self, history):
+        self._mainWindow.updateHistory(history)
 
-   def guiUpdateStatusBar(self, s):
-      self._currentWindow.PushStatusText(s)
+    def guiUpdateStatusBar(self, s):
+        self._currentWindow.PushStatusText(s)
 
-   def guiUpdateChat(self, chatType, data):
-      self._currentWindow.addChatMessage(chatType, data)
+    def guiUpdateChat(self, chatType, data):
+        self._currentWindow.addChatMessage(chatType, data)
 
-   def netDisconnect(self):
-      self._protocol.disconnect()
+    def netDisconnect(self):
+        self._protocol.disconnect()
 
-   def netJoinGame(self, name):
-      self._protocol.join(name)
+    def netJoinGame(self, name):
+        self._protocol.join(name)
 
-   def netLeaveGame(self):
-      self._protocol.leave()
+    def netLeaveGame(self):
+        self._protocol.leave()
 
-   def netMakeMove(self, data):
-      self._protocol.makeMove(data)
+    def netMakeMove(self, data):
+        self._protocol.makeMove(data)
 
-   def netNewGame(self, data):
-      self._protocol.newgame(data)
+    def netNewGame(self, data):
+        self._protocol.newgame(data)
 
-   def netRequestAI(self, algorithm):
-      self._protocol.requestAI(algorithm)
+    def netRequestAI(self, algorithm):
+        self._protocol.requestAI(algorithm)
 
-   def netRequestAIList(self, team):
-      self._protocol.requestAIList(team)
+    def netRequestAIList(self, team):
+        self._protocol.requestAIList(team)
 
-   def netSendChat(self, text, sendTo):
-      self._protocol.sendChat(text, sendTo)
+    def netSendChat(self, text, sendTo):
+        self._protocol.sendChat(text, sendTo)
 
-   def netSetTeam(self, team):
-      self._protocol.setTeam(team)
+    def netSetTeam(self, team):
+        self._protocol.setTeam(team)
 
-   def netShutdown(self):
-      self._protocol.shutdown()
+    def netShutdown(self):
+        self._protocol.shutdown()
 
-   def netVoteStart(self):
-      self._protocol.vote()
+    def netVoteStart(self):
+        self._protocol.vote()
 
-   def registerProtocol(self, p):
-      self._protocol = p
-      self._protocol.setMessenger(self)
+    def registerProtocol(self, p):
+        self._protocol = p
+        self._protocol.setMessenger(self)
 
-   def registerConnectionWindowLauncher(self, f):
-      self._launchConnectionWindow = f
+    def registerConnectionWindowLauncher(self, f):
+        self._launchConnectionWindow = f
 
-   def registerGameListWindowLauncher(self, f):
-      self._launchGameListWindow = f
+    def registerGameListWindowLauncher(self, f):
+        self._launchGameListWindow = f
 
-   def registerMainWindowLauncher(self, f):
-      self._launchMainWindow = f
+    def registerMainWindowLauncher(self, f):
+        self._launchMainWindow = f
 
-   def registerRegistrationWindowLauncher(self, f):
-      self._launchRegistrationWindow = f
+    def registerRegistrationWindowLauncher(self, f):
+        self._launchRegistrationWindow = f
 
-   def setUsername(self, username):
-      self._username = username
+    def setUsername(self, username):
+        self._username = username
 
-   def setPassword(self, password):
-      self._password = password
-
-
+    def setPassword(self, password):
+        self._password = password

@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -25,6 +25,3 @@ GAMESTATUS_INPROGRESS = "in progress"
 GAMESTATUS_COMPLETE   = "complete"
 
 GAMETYPE_STANDARD     = "standard"
-
-
-

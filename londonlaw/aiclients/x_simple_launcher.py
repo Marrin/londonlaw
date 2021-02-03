@@ -4,7 +4,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -40,15 +40,12 @@ from londonlaw.common.protocol import LLAW_PORT
 
 log.startLogging(sys.stderr, 0)
 if len(sys.argv) > 3:
-   port = int(sys.argv[3])
+    port = int(sys.argv[3])
 else:
-   port = LLAW_PORT
+    port = LLAW_PORT
 log.msg("Using server at localhost port " + str(port))
 log.msg("Sending simple AI client \"" + sys.argv[1] + "\" to game room \"" + sys.argv[2] + "\"")
 
 f = x_simple.XSimpleAIFactory(sys.argv[1].decode("utf-8"), sys.argv[2].decode("utf-8"))
 reactor.connectTCP("localhost", port, f)
 reactor.run()
-
-
-

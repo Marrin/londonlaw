@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -231,10 +231,10 @@ pixelTable = \
 # Translate a map location number to a pixel value, adjusted
 # for the map's zoom level.
 def locToPixel(loc, zoom):
-   pixel = pixelTable[loc]
-   adjustedX = pixel[0] / zoom
-   adjustedY = pixel[1] / zoom
-   return (adjustedX, adjustedY)
+    pixel = pixelTable[loc]
+    adjustedX = pixel[0] / zoom
+    adjustedY = pixel[1] / zoom
+    return (adjustedX, adjustedY)
 
 
 GRIDSIZE = (100, 100)
@@ -249,18 +249,18 @@ maskImage = wx.Image(maskImageFile, wx.BITMAP_TYPE_ANY)
 # Specifically, this hash maps 100x100 grids from the map into sets of
 # locations that overlap those grids.
 def generateGridHash():
-   gridHash.clear()
-   for i in range(MAPSIZE[0]/GRIDSIZE[0] + 1):
-      for j in range(MAPSIZE[1]/GRIDSIZE[1] + 1):
-         grid = (i*GRIDSIZE[0], j*GRIDSIZE[1], GRIDSIZE[0], GRIDSIZE[1])
-         for loc in range(1, len(pixelTable)):
-            rect = (pixelTable[loc][0], pixelTable[loc][1],
-               MASKSIZE[0], MASKSIZE[1])
-            if collideRect(rect, grid):
-               gridHash.add((i, j), loc)
+    gridHash.clear()
+    for i in range(MAPSIZE[0]/GRIDSIZE[0] + 1):
+        for j in range(MAPSIZE[1]/GRIDSIZE[1] + 1):
+            grid = (i*GRIDSIZE[0], j*GRIDSIZE[1], GRIDSIZE[0], GRIDSIZE[1])
+            for loc in range(1, len(pixelTable)):
+                rect = (pixelTable[loc][0], pixelTable[loc][1],
+                   MASKSIZE[0], MASKSIZE[1])
+                if collideRect(rect, grid):
+                    gridHash.add((i, j), loc)
 
 
-# Map a pixel into a location on the map, adjusted for the map's zoom level.  
+# Map a pixel into a location on the map, adjusted for the map's zoom level.
 # The following algorithm is used:
 # 1) Find the grid of size GRIDSIZE that contains this pixel.
 # 2) Use the gridHash to get the set of location numbers that overlap
@@ -272,24 +272,19 @@ def generateGridHash():
 #    exactly covers the map number graphic.  If yes, then return the location
 #    number.
 def pixelToLoc(pixel, zoom):
-   adjPixel = (pixel[0]*zoom, pixel[1]*zoom)
-   gridIndex = (adjPixel[0]/GRIDSIZE[0], adjPixel[1]/GRIDSIZE[1])
-   try:
-      locSet = gridHash.get(gridIndex)
-   except KeyError:
-      # we can't have a match if there are no numbers in this grid
-      return 0
+    adjPixel = (pixel[0]*zoom, pixel[1]*zoom)
+    gridIndex = (adjPixel[0]/GRIDSIZE[0], adjPixel[1]/GRIDSIZE[1])
+    try:
+        locSet = gridHash.get(gridIndex)
+    except KeyError:
+        # we can't have a match if there are no numbers in this grid
+        return 0
 
-   for loc in locSet:
-      if collidePoint(adjPixel, (pixelTable[loc][0], pixelTable[loc][1],
-            MASKSIZE[0], MASKSIZE[1])):
-         maskLoc = (adjPixel[0]-pixelTable[loc][0], adjPixel[1]-pixelTable[loc][1])
-         if maskImage.GetRed(maskLoc[0], maskLoc[1]) == 0:
-            return loc
+    for loc in locSet:
+        if collidePoint(adjPixel, (pixelTable[loc][0], pixelTable[loc][1],
+              MASKSIZE[0], MASKSIZE[1])):
+            maskLoc = (adjPixel[0]-pixelTable[loc][0], adjPixel[1]-pixelTable[loc][1])
+            if maskImage.GetRed(maskLoc[0], maskLoc[1]) == 0:
+                return loc
 
-   return 0
-
-
-
-
-
+    return 0

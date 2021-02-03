@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -26,31 +26,29 @@ import sys, gettext, os
 
 
 class LLawServerFactory(protocol.ServerFactory):
-   protocol = LLawServerProtocol
-   
+    protocol = LLawServerProtocol
+
 
 def init():
-   # Parse command-line options
-   parser = OptionParser()
-   parser.add_option("-p", "--port", dest="port",
-         help=_("listen for connections on port NUM"), metavar=_("NUM"), default=str(LLAW_PORT))
-   parser.add_option("-D", "--dbdir", dest="dbdir",
-         help=_("use DBDIR to store game und user database"), metavar=_("DBDIR"),
-         default=os.path.expanduser("~/.londonlaw/server"))
-   (options, args) = parser.parse_args()
+    # Parse command-line options
+    parser = OptionParser()
+    parser.add_option("-p", "--port", dest="port",
+          help=_("listen for connections on port NUM"), metavar=_("NUM"), default=str(LLAW_PORT))
+    parser.add_option("-D", "--dbdir", dest="dbdir",
+          help=_("use DBDIR to store game und user database"), metavar=_("DBDIR"),
+          default=os.path.expanduser("~/.londonlaw/server"))
+    (options, args) = parser.parse_args()
 
-   log.startLogging(sys.stdout, 0)
+    log.startLogging(sys.stdout, 0)
 
-   registry = GameRegistry.getHandle(dbDir=options.dbdir)
-   # Purge expired games every half hour
-   gameKiller = task.LoopingCall(registry.purgeExpiredGames)
-   gameKiller.start(1800)
-   # Purge games involving AI clients
-   registry.purgeBotGames()
+    registry = GameRegistry.getHandle(dbDir=options.dbdir)
+    # Purge expired games every half hour
+    gameKiller = task.LoopingCall(registry.purgeExpiredGames)
+    gameKiller.start(1800)
+    # Purge games involving AI clients
+    registry.purgeBotGames()
 
-   reactor.listenTCP(int(options.port), LLawServerFactory())
-   reactor.run()
+    reactor.listenTCP(int(options.port), LLawServerFactory())
+    reactor.run()
 
-   registry.close()
-
-
+    registry.close()

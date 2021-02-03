@@ -2,7 +2,7 @@
 #  Copyright (C) 2003-2004, 2005 Paul Pelzl
 #
 #  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License, Version 2, as 
+#  it under the terms of the GNU General Public License, Version 2, as
 #  published by the Free Software Foundation.
 #
 #  This program is distributed in the hope that it will be useful,
@@ -23,18 +23,16 @@
 
 # determine whether two rectangles overlap
 def collideRect((x1, y1, w1, h1), (x2, y2, w2, h2)):
-   if ((x1+w1-1) < x2 or x1 > (x2+w2-1) or
-         (y1+h1-1) < y2 or y1 > (y2+h2-1)):
-      return 0
-   else:
-      return 1
+    if ((x1+w1-1) < x2 or x1 > (x2+w2-1) or
+          (y1+h1-1) < y2 or y1 > (y2+h2-1)):
+        return 0
+    else:
+        return 1
 
 
 def collidePoint((x1, y1), (x2, y2, w2, h2)):
-   if (x1 < x2 or x1 > (x2+w2-1) or 
-         y1 < y2 or y1 > (y2+h2-1)):
-      return 0
-   else:
-      return 1
-
-
+    if (x1 < x2 or x1 > (x2+w2-1) or
+          y1 < y2 or y1 > (y2+h2-1)):
+        return 0
+    else:
+        return 1
