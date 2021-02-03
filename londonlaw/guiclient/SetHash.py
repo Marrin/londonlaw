@@ -21,7 +21,7 @@ from sets import *
 
 # create a hash table that does not overwrite values, but rather appends them
 # to a set
-class SetHash:
+class SetHash(object):
     def __init__(self):
         self.dict = {}
 

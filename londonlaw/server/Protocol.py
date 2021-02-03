@@ -686,7 +686,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
 
 
-class ProtocolGameListener:
+class ProtocolGameListener(object):
     __implements__ = (IGameListener,)
 
     def __init__(self, username):

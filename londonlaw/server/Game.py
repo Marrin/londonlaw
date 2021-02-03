@@ -95,7 +95,7 @@ class IGameListener(interface.Interface):
 
 # Vocabulary: a 'player' is a username.  GameRegistry.registry.getClient(player) is the
 #             Protocol instance associated with that username, if one exists.
-class Game:
+class Game(object):
 
     # start a new game with specified name, of desired type
     def __init__(self, name, gameType):

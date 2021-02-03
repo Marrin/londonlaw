@@ -15,11 +15,13 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-
 # messenger class that sends communications between
 # protocol and gui
-class GuiNetMessenger:
-
+#
+# FIXME This class looks really odd.  Like a kitchen sink of responsibilities.
+#   Needs at least an `__init__()`.
+#
+class GuiNetMessenger(object):
     def getUsername(self):
         return self._username
 
@@ -46,19 +48,19 @@ class GuiNetMessenger:
 
     def guiLaunchConnectionWindow(self):
         self._connectionWindow = self._launchConnectionWindow()
-        self._currentWindow    = self._connectionWindow
+        self._currentWindow = self._connectionWindow
 
     def guiLaunchGameListWindow(self):
         self._gameListWindow = self._launchGameListWindow()
-        self._currentWindow  = self._gameListWindow
+        self._currentWindow = self._gameListWindow
 
     def guiLaunchMainWindow(self, pawnInfo):
-        self._mainWindow    = self._launchMainWindow(self._username, pawnInfo)
+        self._mainWindow = self._launchMainWindow(self._username, pawnInfo)
         self._currentWindow = self._mainWindow
 
     def guiLaunchRegistrationWindow(self):
         self._registrationWindow = self._launchRegistrationWindow()
-        self._currentWindow      = self._registrationWindow
+        self._currentWindow = self._registrationWindow
 
     def guiPawnStuck(self, pawnName):
         self._mainWindow.pawnStuck(pawnName)

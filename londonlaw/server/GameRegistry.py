@@ -54,7 +54,7 @@ class UserError(Exception):
 
 registry = None
 
-class GameRegistrySingleton:
+class GameRegistrySingleton(object):
     def __init__(self, dbDir):
         dbDir = os.path.normpath(dbDir)
         if not os.path.isdir(dbDir):
