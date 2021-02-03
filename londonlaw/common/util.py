@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from __future__ import print_function
 import re, sys
 
 def escape_chars(token):
@@ -37,4 +38,4 @@ def printable(uni):
     try:
         return uni.encode(sys.stdout.encoding, "replace")
     except:
-        print "exception in printable"
+        print("exception in printable")

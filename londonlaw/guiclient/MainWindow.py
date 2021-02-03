@@ -22,6 +22,7 @@
 # a set of player status icons, a chat area, and some useful buttons.
 
 from __future__ import absolute_import
+from __future__ import print_function
 import time, gettext, wx
 from .MapWindow import *
 from .ChatPanel import *
@@ -300,7 +301,7 @@ class MainWindow(wx.Frame):
             self.status.PushStatusText(_("The Black Detective moved to %(number)d using %(transport)s.") %
                   {"number" : loc, "transport" : tstr}, 1)
         else:
-            print "unrecognized mover: " + str(mover)
+            print("unrecognized mover:", mover)
 
         # pop up an alert box when X uses a double move
         if mover == self.lastMover and not self.isMrX:

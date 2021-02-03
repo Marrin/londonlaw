@@ -16,6 +16,7 @@
 
 
 from __future__ import absolute_import
+from __future__ import print_function
 from twisted.internet import protocol, reactor
 from twisted.python import log
 import sys
@@ -33,7 +34,7 @@ class AdminClientFactory(protocol.ClientFactory):
         p._password = self._password
 
     def clientConnectionFailed(self, connector, reason):
-        print "Unable to connect to server."
+        print("Unable to connect to server.")
         reactor.stop()
 
 
@@ -49,7 +50,7 @@ def init():
     (options, args) = parser.parse_args()
 
     if len(args) < 1:
-        print usage
+        print(usage)
     else:
         log.startLogging(sys.stdout, 0)
         reactor.connectTCP(options.host, int(options.port), AdminClientFactory(args[0]))

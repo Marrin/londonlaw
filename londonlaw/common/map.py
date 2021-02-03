@@ -16,6 +16,7 @@
 
 
 
+from __future__ import print_function
 TAXI        = "taxi"
 BUS         = "bus"
 UNDERGROUND = "underground"
@@ -342,7 +343,7 @@ def checkMap(m):
     passed = 1
     partial = 0
     for i in range(1, len(m)):
-        print "testing location " + str(i)
+        print("testing location " + str(i))
         routes = m[i]
         for route in routes:
             if route[0] < len(m):
@@ -352,27 +353,28 @@ def checkMap(m):
                     if destRoute[0] == i:
                         matched = 1
                         if destRoute[1] != route[1]:
-                            print ("Error at location "+str(i)+": route to " + str(route[0]) +
-                               " is not self-consistent.")
+                            print(
+                              "Error at location {0}:"
+                              " route to {1} is not self-consistent.".format(
+                                 i, route[0]
+                              )
+                           )
                             passed = 0
                         break
                 if not matched:
-                    print "Error at location "+str(i)+": missing route from "+str(route[0])+"."
+                    print("Error at location "+str(i)+": missing route from "+str(route[0])+".")
                     passed = 0
             else:
                 partial = 1
-    print "----------------------------------------------------------------------------------"
+    print("----------------------------------------------------------------------------------")
     if partial:
         cstr = "Incomplete"
     else:
         cstr = "Complete"
     if passed:
-        print cstr + " map is self-consistent."
+        print(cstr, "map is self-consistent.")
     else:
-        print "Error: "+cstr+" map is not self-consistent."
-
-
-
+        print("Error:", cstr, "map is not self-consistent.")
 
 
 # Generate a random map with valid connections, for testing purposes.

@@ -17,6 +17,7 @@
 
 
 from __future__ import absolute_import
+from __future__ import print_function
 import shlex, sys, gettext, locale
 from twisted.protocols import basic
 from twisted.python import log
@@ -113,7 +114,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
         except AttributeError as error:
             log.msg(str(error))
-            print "tokens = " + str(tokens)
+            print("tokens =", tokens)
             log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
@@ -125,7 +126,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
             self.sendTokens(self.genTag(), "doublemove",
                   data[0], data[1], data[2], data[3], data[4])
         else:
-            print "Protocol.makeMove() received illegal data length"
+            print("Protocol.makeMove() received illegal data length")
 
 
     def newgame(self, data):

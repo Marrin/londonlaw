@@ -17,6 +17,7 @@
 
 
 from __future__ import absolute_import
+from __future__ import print_function
 from twisted.internet import protocol, reactor
 from twisted.protocols import basic
 from twisted.python import log
@@ -593,7 +594,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
         except ServerError as error:
             self.sendBad("*", error.ustr().encode("utf-8"))
         except ValueError as error:
-            print "value error:" + str(error)
+            print("value error:", error)
             self.sendBad("-", str(error))
 
 

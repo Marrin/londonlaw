@@ -18,6 +18,7 @@
 
 
 from __future__ import absolute_import
+from __future__ import print_function
 import gettext, sys
 
 try:
@@ -25,7 +26,7 @@ try:
     gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
 except:
     gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
-    print (_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace")
+    print((_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace"))
     import sys, os.path
     # add the parent directory to PYTHONPATH
     cwd = os.path.split(os.path.abspath(os.getcwd()))

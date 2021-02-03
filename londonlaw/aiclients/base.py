@@ -17,6 +17,7 @@
 
 
 from __future__ import absolute_import
+from __future__ import print_function
 from twisted.internet import protocol, reactor
 from twisted.protocols import basic
 from twisted.python import log
@@ -50,7 +51,7 @@ class BaseAIProtocol(basic.LineOnlyReceiver):
 
     def connectionLost(self, reason):
         #reactor.stop()
-        print "AI: connection lost"
+        print("AI: connection lost")
 
 
     def connectionMade(self):
